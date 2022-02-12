@@ -1,4 +1,5 @@
 import re
+import random
 
 def find_sum(str1):
     # Regular Expression that matches
@@ -73,14 +74,49 @@ word_list = TEXTS[index].split()
 number_of_words = len(word_list)
 
 #počet slov začínajících velkým písmenem
+words_start_uppercase = 0
+for word in word_list:
+    if word[0].isupper():
+        words_start_uppercase = words_start_uppercase + 1
 
 #počet slov psaných velkými písmeny
-uppercase_words = sum(map(str.isupper, TEXTS[index].split()))
+uppercase_words = 0
+for word in word_list:
+    if word.isupper():
+        uppercase_words = uppercase_words + 1
+
+#počet slov psaných malými písmeny
+lowercase_words = 0
+for word in word_list:
+    if word.islower():
+        lowercase_words = lowercase_words + 1
+
+#počet čísel (ne cifer),
+numeric_words = 0
+for word in word_list:
+    if word.isnumeric():
+        numeric_words = numeric_words + 1
 
 #sumu všech čísel (ne cifer) v textu
 count_numbers = find_sum(TEXTS[index])
 
 print(cara)
 print("There are " + str(number_of_words) + " words in the selected text.")
+print("There are " + str(words_start_uppercase) + " titlecase words.")
 print("There are " + str(uppercase_words) + " uppercase words.")
+print("There are " + str(lowercase_words)  + " lowercase words.")
+print("There are " + str(numeric_words) +  " numeric strings.")
 print("The sum of all the numbers is " + str(count_numbers))
+print(cara)
+print("LEN|  OCCURENCES\t|NR.\t|WORD")
+print(cara)
+
+for n in range(0, 12):
+    r = random.randint(1, number_of_words)
+    if len(word_list[r - 1]) >= 10:
+        tab = "\t\t|"
+    elif len(word_list[r - 1]) > 5:
+        tab = "\t\t\t|"
+    else:
+        tab = "\t\t\t\t|"
+    print(str(n) + "|" + len(word_list[r - 1])*"*" + tab + str(r) + "\t\t" + word_list[r - 1])
